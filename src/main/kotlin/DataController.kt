@@ -33,7 +33,7 @@ class DataController : Controller() {
 		j0 = Math.min(Math.max(j0, 0), ySize - 1)
 		val j1 = Math.min(j0 + 1, ySize - 1)
 
-		//TODO Linear interpolation
+		//TODO bilinear interpolation
 
 		return data[i0][j0]
 	}

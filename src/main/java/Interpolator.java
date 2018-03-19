@@ -1,4 +1,4 @@
-/**
+/*
  * Visualization and HCI
  * Exercise 2: Data Representation and Interpolation
  * Volker Ahlers, HS Hannover (volker.ahlers@hs-hannover.de)
