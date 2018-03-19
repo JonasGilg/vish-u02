@@ -40,7 +40,7 @@ public class Interpolator extends JFrame {
 	                    int xSize, int ySize, double xMin, double xMax, double yMin, double yMax) {
 		super(title);
 		setSize(width, height);
-		setResizable(false);
+		//setResizable(false);
 		this.xSize = xSize;
 		this.ySize = ySize;
 		this.xMin = xMin;
@@ -48,7 +48,6 @@ public class Interpolator extends JFrame {
 		dx = (xMax - xMin) / (float) (xSize - 1);
 		dy = (yMax - yMin) / (float) (ySize - 1);
 		data = new double[xSize][ySize];
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
@@ -91,6 +90,9 @@ public class Interpolator extends JFrame {
 	public void paint(Graphics graphics) {
 		int width = getWidth();
 		int height = getHeight();
+
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
 		double dxImage = dx * xSize / (double) width;
 		double dyImage = dy * ySize / (double) height;
 		for (int i = 0; i < width; i++) {
@@ -104,5 +106,4 @@ public class Interpolator extends JFrame {
 		}
 		graphics.drawImage(image, 0, 0, null);
 	}
-
 }
