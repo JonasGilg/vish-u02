@@ -4,41 +4,40 @@
  * Volker Ahlers, HS Hannover (volker.ahlers@hs-hannover.de)
  */
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
-
+@SuppressWarnings("ALL")
 public class Interpolator extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	private int    xSize;			// grid size
-	private int    ySize;
-	private double xMin;			// grid origin
+
+	private int xSize;            // grid size
+	private int ySize;
+	private double xMin;            // grid origin
 	private double yMin;
-	private double dx;				// grid spacing
+	private double dx;                // grid spacing
 	private double dy;
-	private double[][] data;		// attribute values f(x,y)
-	private BufferedImage image;	// image for visualization
-	
+	private double[][] data;        // attribute values f(x,y)
+	private BufferedImage image;    // image for visualization
+
 	/**
 	 * Main method
 	 */
-	public static void main(String[] args) {				
+	public static void main(String[] args) {
 		// mathematical function
 		Interpolator mathFunc = new Interpolator(
 				"Math Function", 800, 800, 50, 50, -1.0, 1.0, -1.0, 1.0);
 		mathFunc.createMathFuncData();
 		mathFunc.setVisible(true);
 	}
-	
+
 	/**
 	 * Constructor
 	 */
 	public Interpolator(String title, int width, int height,
-			int xSize, int ySize, double xMin, double xMax, double yMin, double yMax) {
+	                    int xSize, int ySize, double xMin, double xMax, double yMin, double yMax) {
 		super(title);
 		setSize(width, height);
 		setResizable(false);
@@ -46,13 +45,13 @@ public class Interpolator extends JFrame {
 		this.ySize = ySize;
 		this.xMin = xMin;
 		this.yMin = yMin;
-		dx = (xMax - xMin) / (float)(xSize - 1);
-		dy = (yMax - yMin) / (float)(ySize - 1);
+		dx = (xMax - xMin) / (float) (xSize - 1);
+		dy = (yMax - yMin) / (float) (ySize - 1);
 		data = new double[xSize][ySize];
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);		
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
-	
+
 	/**
 	 * Create data
 	 */
@@ -60,24 +59,24 @@ public class Interpolator extends JFrame {
 		for (int i = 0; i < xSize; i++) {
 			double x = xMin + i * dx;
 			for (int j = 0; j < ySize; j++) {
-				double y = yMin + j * dy;				
+				double y = yMin + j * dy;
 				data[i][j] = Math.sin(2.5 * Math.PI * x) * Math.sin(2.5 * Math.PI * y);
 			}
 		}
 	}
-		
+
 	/**
 	 * Interpolate attribute value f(x,y)
 	 */
 	public double getInterpolatedData(double x, double y) {
 		// (x,y) coordinates of value to be interpolated
 		// indices of closest sample points in x direction, x0 <= x <= x1
-		int i0 = (int)((x - xMin) / dx);
-		i0 = Math.min(Math.max(i0, 0), xSize - 1);	// ensure 0 <= i0 < xSize 
+		int i0 = (int) ((x - xMin) / dx);
+		i0 = Math.min(Math.max(i0, 0), xSize - 1);    // ensure 0 <= i0 < xSize
 		int i1 = Math.min(i0 + 1, xSize - 1);
 		// indices of closest sample points in y direction, y0 <= y <= y1
-		int j0 = (int)((y - yMin) / dy);
-		j0 = Math.min(Math.max(j0, 0), ySize - 1);	// ensure 0 <= j0 < ySize 
+		int j0 = (int) ((y - yMin) / dy);
+		j0 = Math.min(Math.max(j0, 0), ySize - 1);    // ensure 0 <= j0 < ySize
 		int j1 = Math.min(j0 + 1, ySize - 1);
 		// to do: bilinear interpolation of f(x,y)
 		// ...
@@ -86,7 +85,7 @@ public class Interpolator extends JFrame {
 	}
 
 	/**
-	 * Create visualization image and show it in frame 
+	 * Create visualization image and show it in frame
 	 */
 	@Override
 	public void paint(Graphics graphics) {
