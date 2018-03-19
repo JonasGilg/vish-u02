@@ -8,8 +8,8 @@ class MainView : View("Math Function") {
 
 	private val dc by inject<DataController>()
 
-	override val root = borderpane {
-		center = canvas(size.toDouble(), size.toDouble()) {
+	override val root = pane {
+		canvas(size.toDouble(), size.toDouble()) {
 			val g2d = graphicsContext2D
 
 			val dxImage = dc.dx * dc.xSize / width
