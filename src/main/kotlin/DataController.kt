@@ -1,18 +1,17 @@
-import javafx.geometry.Point2D
 import tornadofx.*
 
 class DataController : Controller() {
-	val xSize = 50
-	val ySize = 50
+	private val xSize = 50
+	private val ySize = 50
 
-	val xMin = -1.0
+	private val xMin = -1.0
 	private val xMax = 1.0
 
-	val yMin = -1.0
+	private val yMin = -1.0
 	private val yMax = 1.0
 
-	val dx = (xMax - xMin) / (xSize - 1)
-	val dy = (yMax - yMin) / (ySize - 1)
+	private val dx = (xMax - xMin) / (xSize - 1)
+	private val dy = (yMax - yMin) / (ySize - 1)
 
 	private val data = Array(xSize) { i ->
 		val x = xMin + i * dx
@@ -22,8 +21,14 @@ class DataController : Controller() {
 		}
 	}
 
+	/**
+	 * @param xNormalized a value between 0.0 and 1.0 which represents x in relative space of the data set
+	 * @param yNormalized a value between 0.0 and 1.0 which represents y in relative space of the data set
+	 */
+	fun getInterpolatedData(xNormalized: Double, yNormalized: Double): Double {
+		val x = xMin + (xMax - xMin) * xNormalized
+		val y = yMin + (yMax - yMin) * yNormalized
 
-	fun getInterpolatedData(x: Double, y: Double): Double {
 		var ix1 = ((x - xMin) / dx).toInt()
 		ix1 = Math.min(Math.max(ix1, 0), xSize - 1)
 		val ix2 = Math.min(ix1 + 1, xSize - 1)
