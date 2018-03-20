@@ -11,8 +11,8 @@ class DataController : Controller() {
 	val yMin = -1.0
 	private val yMax = 1.0
 
-	val dx = (xMax - xMin) / (xSize)
-	val dy = (yMax - yMin) / (ySize)
+	val dx = (xMax - xMin) / (xSize - 1)
+	val dy = (yMax - yMin) / (ySize - 1)
 
 	private val data = Array(xSize) { i ->
 		val x = xMin + i * dx
