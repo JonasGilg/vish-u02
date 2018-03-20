@@ -10,8 +10,8 @@ class DataController : Controller() {
 	val yMin = -1.0
 	private val yMax = 1.0
 
-	val dx = (xMax - xMin) / (xSize - 1)
-	val dy = (yMax - yMin) / (ySize - 1)
+	val dx = (xMax - xMin) / (xSize)
+	val dy = (yMax - yMin) / (ySize)
 
 	private val data: Array<DoubleArray> by lazy {
 		val data = Array(xSize) { DoubleArray(ySize) }

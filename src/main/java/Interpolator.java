@@ -20,7 +20,6 @@ public class Interpolator extends JFrame {
 	private double dx;                // grid spacing
 	private double dy;
 	private double[][] data;        // attribute values f(x,y)
-	private BufferedImage image;    // image for visualization
 
 	/**
 	 * Main method
@@ -91,7 +90,7 @@ public class Interpolator extends JFrame {
 		int width = getWidth();
 		int height = getHeight();
 
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
 		double dxImage = dx * xSize / (double) width;
 		double dyImage = dy * ySize / (double) height;
