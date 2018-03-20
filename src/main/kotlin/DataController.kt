@@ -14,17 +14,14 @@ class DataController : Controller() {
 	val dx = (xMax - xMin) / (xSize)
 	val dy = (yMax - yMin) / (ySize)
 
-	private val data: Array<DoubleArray> by lazy {
-		val data = Array(xSize) { DoubleArray(ySize) }
-		for (i in 0 until xSize) {
-			val x = xMin + i * dx
-			for (j in 0 until ySize) {
-				val y = yMin + j * dy
-				data[i][j] = Math.sin(2.5 * Math.PI * x) * Math.sin(2.5 * Math.PI * y)
-			}
+	private val data = Array(xSize) { i ->
+		val x = xMin + i * dx
+		DoubleArray(ySize) { j ->
+			val y = yMin + j * dy
+			Math.sin(2.5 * Math.PI * x) * Math.sin(2.5 * Math.PI * y)
 		}
-		data
 	}
+
 
 	fun getInterpolatedData(x: Double, y: Double): Double {
 		var i0 = ((x - xMin) / dx).toInt()
