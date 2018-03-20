@@ -24,29 +24,24 @@ class DataController : Controller() {
 
 
 	fun getInterpolatedData(x: Double, y: Double): Double {
-		var i0 = ((x - xMin) / dx).toInt()
-		i0 = Math.min(Math.max(i0, 0), xSize - 1)
-		val i1 = Math.min(i0 + 1, xSize - 1)
-		var j0 = ((y - yMin) / dy).toInt()
-		j0 = Math.min(Math.max(j0, 0), ySize - 1)
-		val j1 = Math.min(j0 + 1, ySize - 1)
+		var ix1 = ((x - xMin) / dx).toInt()
+		ix1 = Math.min(Math.max(ix1, 0), xSize - 1)
+		val ix2 = Math.min(ix1 + 1, xSize - 1)
+		var iy1 = ((y - yMin) / dy).toInt()
+		iy1 = Math.min(Math.max(iy1, 0), ySize - 1)
+		val iy2 = Math.min(iy1 + 1, ySize - 1)
 
-		val x0 = xMin + i0 * dx
-		val x1 = xMin + i1 * dx
-		val y0 = yMin + j0 * dy
-		val y1 = yMin + j1 * dy
+		val x1 = xMin + ix1 * dx
+		val x2 = xMin + ix2 * dx
+		val y1 = yMin + iy1 * dy
+		val y2 = yMin + iy2 * dy
 
-		val p = Point2D(x, y)
-		val p1 = Point2D(x0, y0)
-		val p2 = Point2D(x0, y1)
-		val p3 = Point2D(x1, y1)
-		val p4 = Point2D(x1, y0)
+		val r = (x - x1) / (x2 - x1)
+		val s = (y - y1) / (y2 - y1)
 
-		val r = (p - p1) dot (p2 - p1) / p2.distance(p1)
-		val s = (p - p1) dot (p4 - p1) / p4.distance(p1)
-
-		//return (1 - r) * (1 - s)
-
-		return data[i0][j0]
+		return (1 - r) * (1 - s) * data[ix1][iy1] +
+				r * (1 - s) * data[ix2][iy1] +
+				r * s * data[ix2][iy2] +
+				(1 - r) * s * data[ix1][iy2]
 	}
 }
