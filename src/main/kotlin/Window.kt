@@ -25,7 +25,6 @@ class MainView : View("Math Function") {
 					//render to the image in parallel
 					parallelFor(0 until width.toInt()) { i ->
 						val x = dataController.xMin + i * dxImage
-						println(x)
 						for (j in 0 until height.toInt()) {
 							drawCounter.getAndIncrement()
 							val y = dataController.yMin + j * dyImage
