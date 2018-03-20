@@ -1,3 +1,4 @@
+import javafx.geometry.Point2D
 import tornadofx.*
 
 class DataController : Controller() {
@@ -33,7 +34,21 @@ class DataController : Controller() {
 		j0 = Math.min(Math.max(j0, 0), ySize - 1)
 		val j1 = Math.min(j0 + 1, ySize - 1)
 
-		//TODO bilinear interpolation
+		val x0 = xMin + i0 * dx
+		val x1 = xMin + i1 * dx
+		val y0 = yMin + j0 * dy
+		val y1 = yMin + j1 * dy
+
+		val p = Point2D(x, y)
+		val p1 = Point2D(x0, y0)
+		val p2 = Point2D(x0, y1)
+		val p3 = Point2D(x1, y1)
+		val p4 = Point2D(x1, y0)
+
+		val r = (p - p1) dot (p2 - p1) / p2.distance(p1)
+		val s = (p - p1) dot (p4 - p1) / p4.distance(p1)
+
+		//return (1 - r) * (1 - s)
 
 		return data[i0][j0]
 	}

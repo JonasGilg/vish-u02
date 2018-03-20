@@ -1,7 +1,6 @@
 import javafx.scene.image.WritableImage
 import javafx.scene.paint.Color
 import tornadofx.*
-import java.util.concurrent.atomic.AtomicInteger
 
 class AppStarter : App(MainView::class)
 
