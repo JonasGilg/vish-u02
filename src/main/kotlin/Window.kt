@@ -21,12 +21,10 @@ class MainView : View("Math Function") {
 					val dxImage = dataController.dx * dataController.xSize / width
 					val dyImage = dataController.dy * dataController.ySize / height
 
-					val drawCounter = AtomicInteger()
 					//render to the image in parallel
 					parallelFor(0 until width.toInt()) { i ->
 						val x = dataController.xMin + i * dxImage
 						for (j in 0 until height.toInt()) {
-							drawCounter.getAndIncrement()
 							val y = dataController.yMin + j * dyImage
 							val color = 0.5 * (dataController.getInterpolatedData(x, y) + 1.0)
 							image.pixelWriter.setColor(i, j, Color(color, color, color, 1.0))
