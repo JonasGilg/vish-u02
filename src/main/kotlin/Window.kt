@@ -4,11 +4,14 @@ import tornadofx.*
 
 class AppStarter : App(MainView::class)
 
-class MainView : View("Math Function") {
+class MainView : View("Bilinear Interpolation") {
 	private val dataController by inject<DataController>()
 
 	override val root = pane {
-		canvas(800.0, 800.0) {
+		prefWidth = 800.0
+		prefHeight = 800.0
+
+		canvas {
 			widthProperty().bind(this@pane.widthProperty())
 			heightProperty().bind(this@pane.heightProperty())
 
