@@ -1,4 +1,8 @@
 import tornadofx.*
+import kotlin.math.PI
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.sin
 
 class DataController : Controller() {
 	private val xSize = 50
@@ -17,7 +21,7 @@ class DataController : Controller() {
 		val x = xMin + i * dx
 		DoubleArray(ySize) { j ->
 			val y = yMin + j * dy
-			Math.sin(2.5 * Math.PI * x) * Math.sin(2.5 * Math.PI * y)
+			sin(2.5 * PI * x) * sin(2.5 * PI * y)
 		}
 	}
 
@@ -30,11 +34,11 @@ class DataController : Controller() {
 		val y = yMin + (yMax - yMin) * yNormalized
 
 		var ix1 = ((x - xMin) / dx).toInt()
-		ix1 = Math.min(Math.max(ix1, 0), xSize - 1)
-		val ix2 = Math.min(ix1 + 1, xSize - 1)
+		ix1 = min(max(ix1, 0), xSize - 1)
+		val ix2 = min(ix1 + 1, xSize - 1)
 		var iy1 = ((y - yMin) / dy).toInt()
-		iy1 = Math.min(Math.max(iy1, 0), ySize - 1)
-		val iy2 = Math.min(iy1 + 1, ySize - 1)
+		iy1 = min(max(iy1, 0), ySize - 1)
+		val iy2 = min(iy1 + 1, ySize - 1)
 
 		val x1 = xMin + ix1 * dx
 		val x2 = xMin + ix2 * dx
