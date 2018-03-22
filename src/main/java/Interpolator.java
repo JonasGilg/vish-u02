@@ -69,17 +69,26 @@ public class Interpolator extends JFrame {
 	public double getInterpolatedData(double x, double y) {
 		// (x,y) coordinates of value to be interpolated
 		// indices of closest sample points in x direction, x0 <= x <= x1
-		int i0 = (int) ((x - xMin) / dx);
-		i0 = Math.min(Math.max(i0, 0), xSize - 1);    // ensure 0 <= i0 < xSize
-		int i1 = Math.min(i0 + 1, xSize - 1);
+		int ix1 = (int) ((x - xMin) / dx);
+		ix1 = Math.min(Math.max(ix1, 0), xSize - 1);    // ensure 0 <= i0 < xSize
+		int ix2 = Math.min(ix1 + 1, xSize - 1);
 		// indices of closest sample points in y direction, y0 <= y <= y1
-		int j0 = (int) ((y - yMin) / dy);
-		j0 = Math.min(Math.max(j0, 0), ySize - 1);    // ensure 0 <= j0 < ySize
-		int j1 = Math.min(j0 + 1, ySize - 1);
-		// to do: bilinear interpolation of f(x,y)
-		// ...
-		// dummy: return non-interpolated value f(x0,y0)
-		return data[i0][j0];
+		int iy1 = (int) ((y - yMin) / dy);
+		iy1 = Math.min(Math.max(iy1, 0), ySize - 1);    // ensure 0 <= j0 < ySize
+		int iy2 = Math.min(iy1 + 1, ySize - 1);
+
+		double x1 = xMin + ix1 * dx;
+		double x2 = xMin + ix2 * dx;
+		double y1 = yMin + iy1 * dy;
+		double y2 = yMin + iy2 * dy;
+
+		double r = (x - x1) / (x2 - x1);
+		double s = (y - y1) / (y2 - y1);
+
+		return (1 - r) * (1 - s) * data[ix1][iy1] +
+				r * (1 - s) * data[ix2][iy1] +
+				r * s * data[ix2][iy2] +
+				(1 - r) * s * data[ix1][iy2];
 	}
 
 	/**
